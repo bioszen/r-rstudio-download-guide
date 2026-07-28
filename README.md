@@ -7,7 +7,7 @@ A small, single-page guide with official download links for:
 
 The page is intended to help BIOSZEN users install R first and then RStudio Desktop.
 
-Social-sharing previews use the Open Graph metadata in `index.html` and the 1200 × 630 `og-preview.png` image.
+WhatsApp and other social-sharing previews use the Open Graph metadata in `index.html` and the square 1200 × 1200 `og-whatsapp-preview.png` image.
 
 ## View locally
 
