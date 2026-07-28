@@ -1,0 +1,163 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="description" content="Simple official download links for R and RStudio Desktop.">
+  <meta name="theme-color" content="#0969da">
+  <link rel="canonical" href="https://bioszen.github.io/r-rstudio-download-guide/">
+
+  <meta property="og:type" content="website">
+  <meta property="og:url" content="https://bioszen.github.io/r-rstudio-download-guide/">
+  <meta property="og:title" content="Download R and RStudio Easily">
+  <meta property="og:description" content="Official download links for R and RStudio Desktop on Windows, macOS, and Linux.">
+  <meta property="og:image" content="https://bioszen.github.io/r-rstudio-download-guide/og-preview.png">
+  <meta property="og:image:type" content="image/png">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="Download R and RStudio Easily">
+
+  <meta name="twitter:card" content="summary_large_image">
+  <meta name="twitter:title" content="Download R and RStudio Easily">
+  <meta name="twitter:description" content="Official download links for R and RStudio Desktop on Windows, macOS, and Linux.">
+  <meta name="twitter:image" content="https://bioszen.github.io/r-rstudio-download-guide/og-preview.png">
+  <title>Download R and RStudio | BIOSZEN</title>
+  <style>
+    :root {
+      color-scheme: light;
+      --background: #f5f8fc;
+      --surface: #ffffff;
+      --text: #111827;
+      --muted: #4b5563;
+      --border: #d8dee4;
+      --accent: #0969da;
+      --accent-soft: #f0f7ff;
+      --shadow: 0 10px 30px rgba(27, 31, 36, 0.08);
+    }
+
+    * { box-sizing: border-box; }
+
+    body {
+      min-height: 100vh;
+      margin: 0;
+      padding: 40px 24px;
+      display: grid;
+      place-items: center;
+      font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
+      background: var(--background);
+      color: var(--text);
+    }
+
+    .container {
+      width: min(100%, 620px);
+      padding: 32px;
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      box-shadow: var(--shadow);
+    }
+
+    h1 {
+      margin: 0 0 10px;
+      font-size: clamp(1.75rem, 5vw, 2.2rem);
+      line-height: 1.2;
+    }
+
+    h2 {
+      margin: 0 0 14px;
+      font-size: 1.1rem;
+      line-height: 1.35;
+    }
+
+    p {
+      margin: 0 0 18px;
+      line-height: 1.6;
+    }
+
+    section {
+      padding: 24px 0;
+      border-top: 1px solid var(--border);
+    }
+
+    .buttons {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 12px;
+    }
+
+    .btn {
+      display: inline-flex;
+      min-height: 46px;
+      align-items: center;
+      justify-content: center;
+      padding: 12px 16px;
+      border: 1px solid var(--accent);
+      border-radius: 8px;
+      background: var(--accent-soft);
+      color: var(--accent);
+      font-weight: 650;
+      line-height: 1.25;
+      text-align: center;
+      text-decoration: none;
+      transition: transform 150ms ease, box-shadow 150ms ease, background-color 150ms ease;
+    }
+
+    .btn.primary {
+      background: var(--accent);
+      color: #ffffff;
+    }
+
+    .btn:hover {
+      transform: translateY(-1px);
+      box-shadow: 0 8px 20px rgba(27, 31, 36, 0.12);
+    }
+
+    .btn:focus-visible {
+      outline: 3px solid rgba(9, 105, 218, 0.35);
+      outline-offset: 3px;
+    }
+
+    .note {
+      margin: 0;
+      color: var(--muted);
+      font-size: 0.9rem;
+    }
+
+    @media (max-width: 520px) {
+      body { padding: 20px 14px; }
+      .container { padding: 24px 20px; }
+      .buttons { flex-direction: column; }
+      .btn { width: 100%; }
+    }
+
+    @media (prefers-reduced-motion: reduce) {
+      .btn { transition: none; }
+      .btn:hover { transform: none; }
+    }
+  </style>
+</head>
+<body>
+  <main class="container">
+    <h1>Download R and RStudio</h1>
+    <p>Install R first, then install RStudio Desktop.</p>
+
+    <section aria-labelledby="download-r">
+      <h2 id="download-r">1. R</h2>
+      <div class="buttons">
+        <a class="btn" href="https://cran.r-project.org/bin/windows/base/" target="_blank" rel="noopener noreferrer" aria-label="Download R for Windows">Windows</a>
+        <a class="btn" href="https://cran.r-project.org/bin/macosx/" target="_blank" rel="noopener noreferrer" aria-label="Download R for macOS">macOS</a>
+        <a class="btn" href="https://cran.r-project.org/bin/linux/" target="_blank" rel="noopener noreferrer" aria-label="Download R for Linux">Linux</a>
+      </div>
+    </section>
+
+    <section aria-labelledby="download-rstudio">
+      <h2 id="download-rstudio">2. RStudio Desktop</h2>
+      <div class="buttons">
+        <a class="btn primary" href="https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads" target="_blank" rel="noopener noreferrer">Download RStudio</a>
+      </div>
+    </section>
+
+    <p class="note">Official download links from CRAN and Posit.</p>
+  </main>
+</body>
+</html>
