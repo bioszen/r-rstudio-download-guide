@@ -3,9 +3,20 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="Simple official download links for R and RStudio Desktop.">
+  <meta name="description" content="A first-time installation and update guide for R and RStudio Desktop.">
   <meta name="robots" content="index, follow, max-image-preview:large">
   <meta name="theme-color" content="#0969da">
+  <script>
+    try {
+      const savedTheme = localStorage.getItem("theme");
+      const preferredTheme = window.matchMedia("(prefers-color-scheme: dark)").matches ? "dark" : "light";
+      document.documentElement.dataset.theme = savedTheme === "dark" || savedTheme === "light"
+        ? savedTheme
+        : preferredTheme;
+    } catch (error) {
+      document.documentElement.dataset.theme = "light";
+    }
+  </script>
   <link rel="canonical" href="https://bioszen.github.io/r-rstudio-download-guide/">
   <link rel="image_src" href="https://bioszen.github.io/r-rstudio-download-guide/social-preview.jpg?v=5">
 
@@ -56,12 +67,56 @@
       color-scheme: light;
       --background: #f5f8fc;
       --surface: #ffffff;
+      --surface-soft: #f6f8fa;
       --text: #111827;
       --muted: #4b5563;
       --border: #d8dee4;
       --accent: #0969da;
       --accent-soft: #f0f7ff;
+      --code-background: #0d1117;
+      --code-text: #f0f6fc;
+      --warning-background: #fff8c5;
+      --warning-border: #d4a72c;
+      --warning-text: #633c01;
       --shadow: 0 10px 30px rgba(27, 31, 36, 0.08);
+    }
+
+    :root[data-theme="dark"] {
+      color-scheme: dark;
+      --background: #0d1117;
+      --surface: #161b22;
+      --surface-soft: #21262d;
+      --text: #f0f6fc;
+      --muted: #9da7b3;
+      --border: #30363d;
+      --accent: #58a6ff;
+      --accent-soft: #0d2742;
+      --code-background: #010409;
+      --code-text: #f0f6fc;
+      --warning-background: #3b2e08;
+      --warning-border: #9e6a03;
+      --warning-text: #f2cc60;
+      --shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+    }
+
+    @media (prefers-color-scheme: dark) {
+      :root:not([data-theme]) {
+        color-scheme: dark;
+        --background: #0d1117;
+        --surface: #161b22;
+        --surface-soft: #21262d;
+        --text: #f0f6fc;
+        --muted: #9da7b3;
+        --border: #30363d;
+        --accent: #58a6ff;
+        --accent-soft: #0d2742;
+        --code-background: #010409;
+        --code-text: #f0f6fc;
+        --warning-background: #3b2e08;
+        --warning-border: #9e6a03;
+        --warning-text: #f2cc60;
+        --shadow: 0 14px 40px rgba(0, 0, 0, 0.28);
+      }
     }
 
     * { box-sizing: border-box; }
@@ -70,20 +125,41 @@
       min-height: 100vh;
       margin: 0;
       padding: 40px 24px;
-      display: grid;
-      place-items: center;
       font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Arial, sans-serif;
       background: var(--background);
       color: var(--text);
+      transition: background-color 180ms ease, color 180ms ease;
     }
 
     .container {
-      width: min(100%, 620px);
+      width: min(100%, 720px);
+      margin: 0 auto;
       padding: 32px;
       background: var(--surface);
       border: 1px solid var(--border);
       border-radius: 10px;
       box-shadow: var(--shadow);
+      transition: background-color 180ms ease, border-color 180ms ease;
+    }
+
+    .page-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 24px;
+    }
+
+    .heading-group {
+      min-width: 0;
+    }
+
+    .eyebrow {
+      margin: 0 0 8px;
+      color: var(--accent);
+      font-size: 0.75rem;
+      font-weight: 750;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
     }
 
     h1 {
@@ -98,12 +174,51 @@
       line-height: 1.35;
     }
 
+    h3 {
+      margin: 0 0 10px;
+      font-size: 1rem;
+      line-height: 1.4;
+    }
+
     p {
       margin: 0 0 18px;
       line-height: 1.6;
     }
 
-    section {
+    .intro {
+      color: var(--muted);
+    }
+
+    .install-order {
+      margin-top: 6px;
+    }
+
+    .theme-toggle,
+    .copy-button {
+      border: 1px solid var(--border);
+      border-radius: 8px;
+      background: var(--surface-soft);
+      color: var(--text);
+      font: inherit;
+      font-weight: 650;
+      cursor: pointer;
+    }
+
+    .theme-toggle {
+      display: inline-flex;
+      flex: 0 0 auto;
+      min-height: 40px;
+      align-items: center;
+      gap: 7px;
+      padding: 9px 12px;
+    }
+
+    .theme-icon {
+      width: 1.1em;
+      text-align: center;
+    }
+
+    .download-section {
       padding: 24px 0;
       border-top: 1px solid var(--border);
     }
@@ -146,31 +261,217 @@
       outline-offset: 3px;
     }
 
+    .theme-toggle:hover,
+    .copy-button:hover {
+      border-color: var(--accent);
+    }
+
+    .theme-toggle:focus-visible,
+    .copy-button:focus-visible,
+    summary:focus-visible {
+      outline: 3px solid rgba(9, 105, 218, 0.35);
+      outline-offset: 3px;
+    }
+
     .note {
       margin: 0;
       color: var(--muted);
       font-size: 0.9rem;
     }
 
+    .visually-hidden {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    .update-section {
+      margin-top: 26px;
+      padding-top: 26px;
+      border-top: 1px solid var(--border);
+    }
+
+    details {
+      overflow: hidden;
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      background: var(--surface-soft);
+    }
+
+    summary {
+      display: flex;
+      min-height: 54px;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 15px 18px;
+      color: var(--text);
+      font-weight: 700;
+      cursor: pointer;
+      list-style: none;
+    }
+
+    summary::-webkit-details-marker { display: none; }
+
+    summary::after {
+      content: "+";
+      flex: 0 0 auto;
+      color: var(--accent);
+      font-size: 1.35rem;
+      font-weight: 500;
+      line-height: 1;
+    }
+
+    details[open] summary {
+      border-bottom: 1px solid var(--border);
+    }
+
+    details[open] summary::after { content: "−"; }
+
+    .guide-content {
+      padding: 22px 18px 6px;
+      background: var(--surface);
+    }
+
+    .guide-intro {
+      color: var(--muted);
+    }
+
+    .steps {
+      margin: 0;
+      padding-left: 1.45rem;
+    }
+
+    .steps > li {
+      margin-bottom: 26px;
+      padding-left: 4px;
+    }
+
+    .steps p,
+    .steps ul {
+      margin-bottom: 12px;
+    }
+
+    .steps ul {
+      padding-left: 1.25rem;
+      line-height: 1.6;
+    }
+
+    .platform-options {
+      display: grid;
+      gap: 12px;
+      margin-top: 14px;
+    }
+
+    .platform-card {
+      padding: 14px;
+      border: 1px solid var(--border);
+      border-radius: 8px;
+    }
+
+    .platform-card p:last-child { margin-bottom: 0; }
+
+    .code-block {
+      position: relative;
+      margin: 12px 0;
+    }
+
+    pre {
+      overflow-x: auto;
+      margin: 0;
+      padding: 18px 84px 18px 16px;
+      border-radius: 8px;
+      background: var(--code-background);
+      color: var(--code-text);
+      font: 0.875rem/1.55 "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      tab-size: 2;
+    }
+
+    .copy-button {
+      position: absolute;
+      top: 9px;
+      right: 9px;
+      min-height: 32px;
+      padding: 6px 9px;
+      background: #21262d;
+      color: #f0f6fc;
+      font-size: 0.78rem;
+    }
+
+    code:not(pre code) {
+      padding: 0.12em 0.35em;
+      border-radius: 4px;
+      background: var(--surface-soft);
+      color: var(--text);
+      font-family: "SFMono-Regular", Consolas, "Liberation Mono", monospace;
+      font-size: 0.9em;
+    }
+
+    .caution {
+      margin: 14px 0;
+      padding: 13px 14px;
+      border-left: 4px solid var(--warning-border);
+      border-radius: 6px;
+      background: var(--warning-background);
+      color: var(--warning-text);
+    }
+
+    .source-links {
+      padding-top: 16px;
+      border-top: 1px solid var(--border);
+      color: var(--muted);
+      font-size: 0.88rem;
+    }
+
+    .rstudio-update-note {
+      margin-top: 18px;
+      padding: 13px 14px;
+      border-radius: 6px;
+      background: var(--accent-soft);
+      color: var(--text);
+    }
+
+    a:not(.btn) { color: var(--accent); }
+
     @media (max-width: 520px) {
       body { padding: 20px 14px; }
       .container { padding: 24px 20px; }
+      .page-header { flex-direction: column; gap: 10px; }
+      .theme-toggle { align-self: flex-start; }
       .buttons { flex-direction: column; }
       .btn { width: 100%; }
+      pre { padding: 52px 14px 16px; }
     }
 
     @media (prefers-reduced-motion: reduce) {
-      .btn { transition: none; }
+      body, .container, .btn { transition: none; }
       .btn:hover { transform: none; }
     }
   </style>
 </head>
 <body>
   <main class="container">
-    <h1>Download R and RStudio</h1>
-    <p><strong>Install in this order:</strong> first R, then RStudio Desktop.</p>
+    <header class="page-header">
+      <div class="heading-group">
+        <p class="eyebrow">First-time installation</p>
+        <h1>Download R and RStudio</h1>
+        <p class="intro">Use this guide when installing R and RStudio Desktop for the first time.</p>
+      </div>
+      <button class="theme-toggle" id="theme-toggle" type="button" aria-pressed="false">
+        <span class="theme-icon" aria-hidden="true">☾</span>
+        <span class="theme-label">Dark mode</span>
+      </button>
+    </header>
 
-    <section aria-labelledby="download-r">
+    <p class="install-order"><strong>Install in this order:</strong> first R, then RStudio Desktop.</p>
+
+    <section class="download-section" aria-labelledby="download-r">
       <h2 id="download-r">1. R</h2>
       <div class="buttons">
         <a class="btn" href="https://cran.r-project.org/bin/windows/base/" target="_blank" rel="noopener noreferrer" aria-label="Download R for Windows">Windows</a>
@@ -179,7 +480,7 @@
       </div>
     </section>
 
-    <section aria-labelledby="download-rstudio">
+    <section class="download-section" aria-labelledby="download-rstudio">
       <h2 id="download-rstudio">2. RStudio Desktop</h2>
       <div class="buttons">
         <a class="btn primary" href="https://docs.posit.co/ide/user/#rstudio-ide-oss-downloads" target="_blank" rel="noopener noreferrer">Download RStudio</a>
@@ -187,6 +488,140 @@
     </section>
 
     <p class="note">Official download links from CRAN and Posit.</p>
+
+    <section class="update-section" aria-labelledby="update-heading">
+      <h2 class="visually-hidden" id="update-heading">Update an existing R installation</h2>
+
+      <details id="update-guide">
+        <summary>Already have R? View the update guide</summary>
+        <div class="guide-content">
+          <p class="guide-intro">R updates are installed differently on each operating system. RStudio is a separate application and is not updated by the R commands below.</p>
+
+          <ol class="steps">
+            <li>
+              <h3>Save your package list</h3>
+              <p>Run this in the R console before updating. It records only add-on packages, not the packages that come with R.</p>
+              <div class="code-block">
+                <pre><code id="backup-packages">ip &lt;- installed.packages()
+packages_before &lt;- rownames(ip)[is.na(ip[, "Priority"])]
+saveRDS(packages_before, "~/r-packages-before-update.rds")</code></pre>
+                <button class="copy-button" type="button" data-copy="backup-packages" aria-label="Copy the package backup command">Copy</button>
+              </div>
+            </li>
+
+            <li>
+              <h3>Check for and install a newer R version</h3>
+              <div class="platform-options">
+                <article class="platform-card">
+                  <h3>Windows — automatic option</h3>
+                  <p>Open the standard R console as a user who can install software, then paste the complete command. It checks the latest available R version and opens the installer only when an update exists.</p>
+                  <div class="code-block">
+                    <pre><code id="windows-update">if (!requireNamespace("installr", quietly = TRUE)) {
+  install.packages("installr")
+}
+installr::updateR()</code></pre>
+                    <button class="copy-button" type="button" data-copy="windows-update" aria-label="Copy the Windows R update command">Copy</button>
+                  </div>
+                  <p class="note">Complete the installer prompts. When asked, choose to copy packages, keep the old packages, and update packages.</p>
+                </article>
+
+                <article class="platform-card">
+                  <h3>macOS</h3>
+                  <p>There is no equivalent universal R self-updater. Download the newest signed installer from the <a href="https://cran.r-project.org/bin/macosx/" target="_blank" rel="noopener noreferrer">official CRAN macOS page</a>, close RStudio, and run the installer.</p>
+                </article>
+
+                <article class="platform-card">
+                  <h3>Linux</h3>
+                  <p>Update R with your distribution's package manager and the appropriate CRAN repository. Follow the instructions for your distribution on the <a href="https://cran.r-project.org/bin/linux/" target="_blank" rel="noopener noreferrer">official CRAN Linux page</a>.</p>
+                </article>
+              </div>
+            </li>
+
+            <li>
+              <h3>Tell RStudio which R version to use</h3>
+              <p><strong>Windows:</strong> restart RStudio, then open <strong>Tools → Global Options → General → Basic → R Sessions</strong>. Select <strong>Change</strong> beside <strong>R version</strong>, choose the newest installation, confirm, and restart RStudio.</p>
+              <p><strong>macOS and Linux:</strong> close and reopen RStudio after updating R. It normally uses the system's current R installation.</p>
+              <p>Verify the active installation in the RStudio console:</p>
+              <div class="code-block">
+                <pre><code id="verify-version">R.version.string
+R.home()
+.libPaths()</code></pre>
+                <button class="copy-button" type="button" data-copy="verify-version" aria-label="Copy the R version verification command">Copy</button>
+              </div>
+            </li>
+
+            <li>
+              <h3>Restore and update packages</h3>
+              <p>On Windows, the updater can copy your packages automatically. Keep the old package library until you have confirmed that your projects work. For a manual installation or any packages still missing, run this in the new R version:</p>
+              <div class="code-block">
+                <pre><code id="restore-packages">packages_before &lt;- readRDS("~/r-packages-before-update.rds")
+missing &lt;- setdiff(packages_before, rownames(installed.packages()))
+if (length(missing)) install.packages(missing)
+update.packages(ask = FALSE, checkBuilt = TRUE)</code></pre>
+                <button class="copy-button" type="button" data-copy="restore-packages" aria-label="Copy the package restoration command">Copy</button>
+              </div>
+              <p class="caution"><strong>Important:</strong> do not manually copy R's base or recommended packages. Compiled packages may need to be reinstalled for the new R version. Bioconductor, GitHub, local, and <code>renv</code> project packages may require their original installation method.</p>
+            </li>
+          </ol>
+
+          <p class="source-links">Guidance based on the <a href="https://cran.r-project.org/web/packages/installr/installr.pdf" target="_blank" rel="noopener noreferrer">CRAN installr manual</a>, <a href="https://cran.r-project.org/doc/manuals/r-release/R-admin.html#Updating-packages" target="_blank" rel="noopener noreferrer">R Installation and Administration</a>, and <a href="https://docs.posit.co/ide/user/ide/guide/environments/r/managing-r.html" target="_blank" rel="noopener noreferrer">Posit's RStudio guide</a>.</p>
+          <p class="rstudio-update-note"><strong>Updating RStudio Desktop:</strong> you only need to update RStudio when the application displays a notification that a newer version is available. Follow the instructions shown by RStudio; updating R and updating RStudio are separate processes.</p>
+        </div>
+      </details>
+    </section>
   </main>
+
+  <script>
+    const root = document.documentElement;
+    const themeToggle = document.getElementById("theme-toggle");
+    const themeIcon = themeToggle.querySelector(".theme-icon");
+    const themeLabel = themeToggle.querySelector(".theme-label");
+    const themeColor = document.querySelector('meta[name="theme-color"]');
+
+    function updateThemeControl() {
+      const darkMode = root.dataset.theme === "dark";
+      themeToggle.setAttribute("aria-pressed", String(darkMode));
+      themeToggle.setAttribute("aria-label", darkMode ? "Switch to light mode" : "Switch to dark mode");
+      themeIcon.textContent = darkMode ? "☀" : "☾";
+      themeLabel.textContent = darkMode ? "Light mode" : "Dark mode";
+      themeColor.setAttribute("content", darkMode ? "#0d1117" : "#0969da");
+    }
+
+    themeToggle.addEventListener("click", () => {
+      const nextTheme = root.dataset.theme === "dark" ? "light" : "dark";
+      root.dataset.theme = nextTheme;
+      try {
+        localStorage.setItem("theme", nextTheme);
+      } catch (error) {
+        // The theme still changes when storage is unavailable.
+      }
+      updateThemeControl();
+    });
+
+    document.querySelectorAll("[data-copy]").forEach((button) => {
+      button.addEventListener("click", async () => {
+        const code = document.getElementById(button.dataset.copy).textContent.trim();
+        const originalLabel = button.textContent;
+
+        try {
+          await navigator.clipboard.writeText(code);
+          button.textContent = "Copied";
+        } catch (error) {
+          const selection = window.getSelection();
+          const range = document.createRange();
+          range.selectNodeContents(document.getElementById(button.dataset.copy));
+          selection.removeAllRanges();
+          selection.addRange(range);
+          button.textContent = "Select & copy";
+        }
+
+        window.setTimeout(() => {
+          button.textContent = originalLabel;
+        }, 1800);
+      });
+    });
+
+    updateThemeControl();
+  </script>
 </body>
 </html>
